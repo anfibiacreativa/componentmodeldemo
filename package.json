@@ -1,0 +1,28 @@
+{
+  "name": "componentmodeldemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "transpile": "bash ./scripts/jcotranspile.sh",
+    "build:framents": "pnpm --filter reframed --filter web-fragments build",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@bytecodealliance/componentize-js": "^0.0.6",
+    "@bytecodealliance/jco": "^0.6.1",
+    "@bytecodealliance/preview2-shim": "^0.0.7"
+  },
+  "devDependencies": {
+    "vite": "^5.4.1",
+    "vite-plugin-top-level-await": "^1.4.1",
+    "vite-plugin-wasm": "^3.3.0"
+  }
+}

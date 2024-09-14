@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Time of the day display</title>
+	</head>
+    <style>
+        img {
+          width: 130px;
+          height: auto;
+        }
+      </style>
+	<body>
+		<h1>Time of the day display</h1>
+		<p id="day-time">initializing...</p>
+        <img id="image" src="./assets/default.png" />
+		<script type="module">
+			console.log(
+				`time-display starting (document.title == '${document.title})'`
+			);
+			const root = document.getElementById("day-time");
+            const img = root.querySelector('img#image');
+            root.textContent = 'ready';
+            window.addEventListener('message', (event) => {
+                // Ensure the message is coming from a trusted source
+                if (event.origin !== window.location.origin) return;
+                
+                const { type, data } = event.data;
+                
+                if (type === 'updateImage') {
+                    // Update the image and other content based on the received message
+                    const img = document.querySelector('img');
+                    img.src = data.imgSrc;
+                    root.textContent = data.result;
+                    console.log('result', data.result);
+                }
+            });
+			console.debug("time-display script end");
+
+			console.assert(
+				document.title === "Time of the day display",
+				`script[type=module] didn't eval in an iframe, document title: ${document.title}`
+			);
+		</script>
+	</body>
+</html>

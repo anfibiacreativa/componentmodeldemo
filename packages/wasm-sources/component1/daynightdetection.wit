@@ -1,0 +1,3 @@
+default world daynightdetection {
+  export daynightdetection: func(input: string) -> string
+}

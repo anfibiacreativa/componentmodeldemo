@@ -1,0 +1,3 @@
+default world getsunormoon {
+  export getsunormoon: func(daynight: string) -> string
+}
