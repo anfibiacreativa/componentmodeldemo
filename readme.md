@@ -38,7 +38,7 @@ Now you can run
 $ pnpm run transpile
 ```
 
-To transpile the components. The output will be placed under the same `output` directory. 
+To transpile the components. The output will be placed under the same `/output` directory. 
 For exammple, for `component2`, you should see the following output, both in the terminal and in the source code.
 
 ```bash
@@ -58,18 +58,24 @@ Transpiled JS Component Files:
  - ./output/component2/imports/wall-clock.d.ts          0.18 KiB
  ```
 
- You can add new components to experiment. As long as you add them to the `wasm-sources` and call them `component{i}`, they will be included in the componentization and transpilation.
+You can add new components to experiment. As long as you add them to the `wasm-sources` and in a folder called `component{i}`, they will be included in the componentization and transpilation. You will also need to add this command to the `scripts` section of the `package.json`.
 
- ## Adding the components to the frontend app.
+```json
+"transpile": "jco transpile ./output/${COMPONENT_NAME}.component.wasm -o ./output/${COMPONENT_NAME} --wasi-shim",
+```
 
- This demo uses `web-fragments` to reframe the micro-frontends and add them to the UI. For example, to add component2, it is added as a new `.html` file, to the `public` folder at root level.
+This is the command responsible for the transpilation with `jco`.
 
- This code is reponsible to reframing the component 
+## Adding the components to the frontend app.
+
+This demo uses `web-fragments` to reframe the micro-frontends and add them to the UI. For example, to add component2, it is added as a new `.html` file, to the `public` folder at root level. That's the endpoint from where the data is streamed.
+
+This code is reponsible to reframing the component 
  
  
 ```javascript
 
-// Reframe component module2
+// Reframe component2
 const endpoints = ['component2.html'];
 const ref = `./${endpoints[0]}`;
 const refId = ref.replace(/\.html$/, '');
@@ -78,11 +84,12 @@ const { container } = reframed(ref, { containerTagName: tageName });
 
 container.setAttribute('style', 'border:3px dotted red');
 container.setAttribute('id', `${tageName}-${refId}`);
-// This should be part of the reframed: why wouldn't I be able to configure this?
+
+// append the reframed component to the DOM
 const main = document.body.querySelector('main');
 main.appendChild(container);
 ```
-main.js
+This is the code in main.js
 
 Make sure to have all dependencies in place. Read more about `web-fragments` following [this link](https://github.com/web-fragments/web-fragments)
  
