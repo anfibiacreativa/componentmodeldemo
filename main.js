@@ -29,7 +29,7 @@ function postMessageToIframe(result, imgSrc) {
   const iframe = document.querySelector('iframe#component2'); 
   if (iframe) {
       // Ensure the iframe is loaded before sending the message
-      console.log('message being sent')
+      console.log('message being sent');
       iframe.contentWindow.postMessage({
         type: 'updateImage',
         data: {
